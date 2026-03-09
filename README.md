@@ -26,14 +26,17 @@ A Unity Editor plugin that brings full 6DOF SpaceMouse Pro navigation to the Uni
    ```
 4. Click **Add**
 
+> **macOS Security:** If macOS blocks the dylib after install, go to **System Settings → Privacy & Security** and allow it.
+
 ### Manual installation
 
-1. Download or clone this repository (`main` branch).
+1. Download or clone this repository.
 2. Copy the following folders into your Unity project's `Assets` folder:
    ```
    Assets/Plugins/
    Assets/SpaceMousePro/
    ```
+   Your project's `Assets` folder should end up containing both `Plugins/` and `SpaceMousePro/`.
 
 3. Open Unity. In the **Project** window, select:
    ```
