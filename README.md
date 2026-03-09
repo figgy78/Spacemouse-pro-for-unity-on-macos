@@ -6,11 +6,13 @@ A Unity Editor plugin that brings full 6DOF SpaceMouse Pro navigation to the Uni
 
 ## Requirements
 
-- **macOS** (Apple Silicon or Intel)
-- **Unity 6** (6000.x) or later
+- **macOS** (Apple Silicon or Intel) — tested on macOS 26 Tahoe
+- **Unity** — tested on 6000.3
 - **3DxWareMac** driver installed — [download from 3Dconnexion](https://3dconnexion.com/us/drivers/)
   The driver must be running for the plugin to receive device input.
-- A **SpaceMouse Pro** (or compatible 3Dconnexion device)
+- A **SpaceMouse Pro** — if you get this working on other 3Dconnexion devices, please let me know!
+
+> **Note:** Button mapping is coming soon.
 
 ---
 
@@ -57,7 +59,7 @@ A Unity Editor plugin that brings full 6DOF SpaceMouse Pro navigation to the Uni
 
 ## Settings
 
-Open **Edit → Preferences → SpaceMouse Pro**.
+Open **Unity → Settings → SpaceMouse Pro**.
 
 | Section | Description |
 |---|---|
@@ -81,7 +83,7 @@ The overlay adds compact navigation controls directly to the Scene View toolbar.
 
 1. Open a **Scene View** window.
 2. Either:
-   - Click **Show Navigation Overlay** in **Preferences → SpaceMouse Pro → Scene View**, or
+   - Click **Show Navigation Overlay** in **Settings → SpaceMouse Pro → Scene View**, or
    - Click the **☰ (overlay menu)** icon in the top-right of the Scene View and enable **SpaceMouse**.
 
 The overlay shows three toggle buttons:
@@ -104,7 +106,7 @@ The camera moves on a sphere around the current pivot point. Rotation always fac
 **Free Look**
 First-person mode. The camera rotates around its own position and translates freely through space. No pivot point.
 
-Switch modes from the Scene View overlay or from **Preferences → Navigation → Rotation Mode**.
+Switch modes from the Scene View overlay or from **Settings → SpaceMouse Pro → Navigation → Rotation Mode**.
 
 ### Lock Horizon
 
