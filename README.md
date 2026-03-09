@@ -59,6 +59,8 @@ A Unity Editor plugin that brings full 6DOF SpaceMouse Pro navigation to the Uni
 
 ## Settings
 
+![Settings](images/SpaceMouseProDriver_Settings.png)
+
 Open **Unity → Settings → SpaceMouse Pro**.
 
 | Section | Description |
@@ -76,6 +78,8 @@ Click **Reset to Defaults** to restore all settings to factory values.
 ---
 
 ## Scene View Overlay
+
+![Overlay](images/SpaceMouseProDriver_Overlay.png)
 
 The overlay adds compact navigation controls directly to the Scene View toolbar.
 
