@@ -1,0 +1,46 @@
+# ── Unity generated ──────────────────────────────────────────────────────────
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Bb]uild/
+[Bb]uilds/
+UserSettings/
+
+# ── Unity project files ───────────────────────────────────────────────────────
+*.sln
+*.csproj
+*.booproj
+*.pidb
+*.suo
+*.sdf
+*.unityproj
+*.unitypackage
+*.zip
+
+# ── Unity project-specific assets (not part of this plugin) ──────────────────
+Assets/Scenes/
+Assets/Settings/
+Assets/DefaultVolumeProfile.asset
+Assets/DefaultVolumeProfile.asset.meta
+Assets/InputSystem_Actions.inputactions
+Assets/InputSystem_Actions.inputactions.meta
+Assets/UniversalRenderPipelineGlobalSettings.asset
+Assets/UniversalRenderPipelineGlobalSettings.asset.meta
+Packages/
+ProjectSettings/
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vs/
+.idea/
+*.user
+*.suo
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# ── SDK documentation (confidential, not to be redistributed) ─────────────────
+*.pdf
