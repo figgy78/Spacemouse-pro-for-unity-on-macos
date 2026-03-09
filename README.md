@@ -128,6 +128,5 @@ This project is an **independent, open-source integration** and is **not affilia
 ## Credits
 
 Made by **Erlend Dal Sakshaug**
-📧 esakshaug@gmail.com
 
 Contributions and feedback welcome — open an issue or pull request on GitHub.
