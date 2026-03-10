@@ -44,3 +44,6 @@ Thumbs.db
 
 # ── SDK documentation (confidential, not to be redistributed) ─────────────────
 *.pdf
+Assets/Scenes.meta
+Assets/Settings.meta
+mono_crash.f740caf26.0.json
