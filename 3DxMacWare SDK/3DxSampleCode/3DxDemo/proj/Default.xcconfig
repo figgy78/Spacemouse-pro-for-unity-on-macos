@@ -1,0 +1,4 @@
+//
+//  Default.xcconfig
+//
+TDXWAREMAC_FRAMEWORK_VER = 1.1.0

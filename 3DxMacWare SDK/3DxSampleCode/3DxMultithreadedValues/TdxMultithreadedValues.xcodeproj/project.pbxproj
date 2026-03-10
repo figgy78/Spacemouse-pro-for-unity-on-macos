@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		8354F87615FF8219005E7B17 /* Versioning */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8354F87915FF8226005E7B17 /* Build configuration list for PBXAggregateTarget "Versioning" */;
+			buildPhases = (
+				8354F87515FF8219005E7B17 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Versioning;
+			productName = Versioning;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		83D600F71966D891009BFE54 /* 3DconnexionClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D600F61966D891009BFE54 /* 3DconnexionClient.framework */; };
+		83D9E31E1601D97C00F8214B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		83D9E31F1601D97C00F8214B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		83D9E3201601D97C00F8214B /* 3DxIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8354F8B815FF9030005E7B17 /* 3DxIcon.icns */; };
+		83D9E3221601D97C00F8214B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		83D9E3261601D97C00F8214B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		83D9E32F1601D9AA00F8214B /* 3DxClientConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D9E2E71601C31500F8214B /* 3DxClientConnection.m */; };
+		83D9E3C71603280C00F8214B /* TdxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D9E3C61603280C00F8214B /* TdxAppDelegate.m */; };
+		83D9E3FE16035AAA00F8214B /* 3DxEventData.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D9E3FD16035AAA00F8214B /* 3DxEventData.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		83D9E31C1601D97C00F8214B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8354F87615FF8219005E7B17;
+			remoteInfo = Versioning;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		256AC3F00F4B6AF500CF3369 /* TdxMultithreadedValues_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TdxMultithreadedValues_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8354F88B15FF8C6E005E7B17 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		8354F8B815FF9030005E7B17 /* 3DxIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 3DxIcon.icns; sourceTree = "<group>"; };
+		83CA394C21E77C1400CD4D42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		83D600F61966D891009BFE54 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = /Library/Frameworks/3DconnexionClient.framework; sourceTree = "<absolute>"; };
+		83D9E2E61601C31500F8214B /* 3DxClientConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 3DxClientConnection.h; sourceTree = "<group>"; };
+		83D9E2E71601C31500F8214B /* 3DxClientConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 3DxClientConnection.m; sourceTree = "<group>"; };
+		83D9E32B1601D97C00F8214B /* TdxMultithreadedValues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TdxMultithreadedValues.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83D9E32D1601D97C00F8214B /* TdxMultithreadedValues-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TdxMultithreadedValues-Info.plist"; sourceTree = "<group>"; };
+		83D9E3C51603280C00F8214B /* TdxAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TdxAppDelegate.h; sourceTree = "<group>"; };
+		83D9E3C61603280C00F8214B /* TdxAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TdxAppDelegate.m; sourceTree = "<group>"; };
+		83D9E3FC16035AAA00F8214B /* 3DxEventData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 3DxEventData.h; sourceTree = "<group>"; };
+		83D9E3FD16035AAA00F8214B /* 3DxEventData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 3DxEventData.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83D9E3251601D97C00F8214B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83D9E3261601D97C00F8214B /* Cocoa.framework in Frameworks */,
+				83D600F71966D891009BFE54 /* 3DconnexionClient.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				83D9E3FC16035AAA00F8214B /* 3DxEventData.h */,
+				83D9E3FD16035AAA00F8214B /* 3DxEventData.m */,
+				83D9E2E61601C31500F8214B /* 3DxClientConnection.h */,
+				83D9E2E71601C31500F8214B /* 3DxClientConnection.m */,
+				83D9E3C51603280C00F8214B /* TdxAppDelegate.h */,
+				83D9E3C61603280C00F8214B /* TdxAppDelegate.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83D9E32B1601D97C00F8214B /* TdxMultithreadedValues.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* TdxXCodeTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				8354F88B15FF8C6E005E7B17 /* version.h */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = TdxXCodeTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				256AC3F00F4B6AF500CF3369 /* TdxMultithreadedValues_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8354F8B815FF9030005E7B17 /* 3DxIcon.icns */,
+				83D9E32D1601D97C00F8214B /* TdxMultithreadedValues-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83D600F61966D891009BFE54 /* 3DconnexionClient.framework */,
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83D9E31A1601D97C00F8214B /* TdxMultithreadedValues */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83D9E3281601D97C00F8214B /* Build configuration list for PBXNativeTarget "TdxMultithreadedValues" */;
+			buildPhases = (
+				83D9E31D1601D97C00F8214B /* Resources */,
+				83D9E3211601D97C00F8214B /* Sources */,
+				83D9E3251601D97C00F8214B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83D9E31B1601D97C00F8214B /* PBXTargetDependency */,
+			);
+			name = TdxMultithreadedValues;
+			productInstallPath = "$(HOME)/Applications";
+			productName = TdxXCodeTemplate;
+			productReference = 83D9E32B1601D97C00F8214B /* TdxMultithreadedValues.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TdxMultithreadedValues" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				Base,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* TdxXCodeTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83D9E31A1601D97C00F8214B /* TdxMultithreadedValues */,
+				8354F87615FF8219005E7B17 /* Versioning */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		83D9E31D1601D97C00F8214B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83D9E31E1601D97C00F8214B /* InfoPlist.strings in Resources */,
+				83D9E31F1601D97C00F8214B /* MainMenu.xib in Resources */,
+				83D9E3201601D97C00F8214B /* 3DxIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8354F87515FF8219005E7B17 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\nset -x\nexport\nCURRENTYEAR=`date +%Y`\nVERSIONHEADER=\"$PROJECT_DIR/version.h\"\n#PLISTFILE=\"$PROJECT_DIR/\"\nBASEDIR=\"$PROJECT_DIR\"\n\nSVNSOURCEREV=1234\n\nMAJORVER=`grep \"#define VERSION_MAJOR\" \"$VERSIONHEADER\" | sed -e 's/\\/.*//g' -e 's/[^0-9]//g'`\nMINORVER=`grep \"#define VERSION_MINOR\" \"$VERSIONHEADER\" | sed -e 's/\\/.*//g' -e 's/[^0-9]//g'`\nMICROVER=`grep \"#define VERSION_MICRO\" \"$VERSIONHEADER\" | sed -e 's/\\/.*//g' -e 's/[^0-9]//g'`\n\nSTRINGVERSION=\"\\\"$MAJORVER\".\"$MINORVER\".\"$MICROVER\\\"\"\n\necho Version without SVN revision will be: $MAJORVER.$MINORVER.$MICROVER\necho Version with SVN revision will be: $MAJORVER.$MINORVER.$MICROVER.$SVNSOURCEREV\n\necho \"#define VERSION $MAJORVER.$MINORVER.$MICROVER\" > \"$PROJECT_DIR/InfoPlist.h\"\necho \"#define VERSIONWITHREV $MAJORVER.$MINORVER.$MICROVER.$SVNSOURCEREV\" >> \"$PROJECT_DIR/InfoPlist.h\"\necho \"#define CURRENTYEAR $CURRENTYEAR\" >> \"$PROJECT_DIR/InfoPlist.h\"\n\nexit 0\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83D9E3211601D97C00F8214B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83D9E3221601D97C00F8214B /* main.m in Sources */,
+				83D9E32F1601D9AA00F8214B /* 3DxClientConnection.m in Sources */,
+				83D9E3C71603280C00F8214B /* TdxAppDelegate.m in Sources */,
+				83D9E3FE16035AAA00F8214B /* 3DxEventData.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		83D9E31B1601D97C00F8214B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8354F87615FF8219005E7B17 /* Versioning */;
+			targetProxy = 83D9E31C1601D97C00F8214B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83CA394C21E77C1400CD4D42 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8354F87715FF8219005E7B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Versioning;
+				SDKROOT = "$(inherited)";
+			};
+			name = Debug;
+		};
+		8354F87815FF8219005E7B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = Versioning;
+				SDKROOT = "$(inherited)";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		83D9E3291601D97C00F8214B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TdxMultithreadedValues_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "TdxMultithreadedValues-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					3DConnexionClient,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.3dconnexion.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = TdxMultithreadedValues;
+				SDKROOT = "$(inherited)";
+			};
+			name = Debug;
+		};
+		83D9E32A1601D97C00F8214B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TdxMultithreadedValues_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "TdxMultithreadedValues-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					3DConnexionClient,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.3dconnexion.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = TdxMultithreadedValues;
+				SDKROOT = "$(inherited)";
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
+				INFOPLIST_PREPROCESS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
+				INFOPLIST_PREPROCESS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8354F87915FF8226005E7B17 /* Build configuration list for PBXAggregateTarget "Versioning" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8354F87715FF8219005E7B17 /* Debug */,
+				8354F87815FF8219005E7B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83D9E3281601D97C00F8214B /* Build configuration list for PBXNativeTarget "TdxMultithreadedValues" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83D9E3291601D97C00F8214B /* Debug */,
+				83D9E32A1601D97C00F8214B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TdxMultithreadedValues" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
