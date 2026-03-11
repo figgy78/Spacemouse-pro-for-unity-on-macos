@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.IMGUI.Controls;
 using UnityEditor.Overlays;
 using UnityEngine;
 
@@ -28,6 +29,16 @@ namespace SpaceMousePro
         const float kDropWidth   = 190f;
         const float kInvWidth    = 50f;
         const float kValueWidth  = 60f;
+
+        static void DrawDivider()
+        {
+            EditorGUILayout.Space(8);
+            var rect = GUILayoutUtility.GetRect(0, 1, GUILayout.ExpandWidth(true));
+            rect.x     += 4;
+            rect.width -= 8;
+            EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 0.3f));
+            EditorGUILayout.Space(8);
+        }
 
         static void DrawGUI(string searchContext)
         {
@@ -64,6 +75,20 @@ namespace SpaceMousePro
                 GUI.color = statusColor;
                 EditorGUILayout.LabelField("Status", statusText);
                 GUI.color = prev;
+
+                EditorGUILayout.Space(4);
+                if (GUILayout.Button("Show Navigation Overlay", GUILayout.Width(180)))
+                {
+                    SceneView sv = SceneView.lastActiveSceneView;
+                    if (sv == null && SceneView.sceneViews.Count > 0)
+                        sv = SceneView.sceneViews[0] as SceneView;
+                    if (sv != null)
+                    {
+                        sv.Focus();
+                        if (sv.TryGetOverlay("spacemouse-nav", out Overlay overlay))
+                            overlay.displayed = true;
+                    }
+                }
             }
 
             EditorGUILayout.Space(8);
@@ -111,7 +136,7 @@ namespace SpaceMousePro
                     SpaceMouseSettings.DeadZone, 0f, 0.5f);
             }
 
-            EditorGUILayout.Space(8);
+            DrawDivider();
 
             // ── Axis Mapping ─────────────────────────────────────────────────
             EditorGUILayout.LabelField("Axis Mapping", EditorStyles.boldLabel);
@@ -124,40 +149,26 @@ namespace SpaceMousePro
             for (int ch = 0; ch < SpaceMouseSettings.ChannelCount; ch++)
                 DrawChannelRow(ch, connected);
 
-            using (new EditorGUILayout.HorizontalScope())
-            {
-                GUILayout.Space(4);
-                GUILayout.Label("Button mapping coming soon.",
-                    new GUIStyle(EditorStyles.miniLabel) { fontStyle = FontStyle.Italic });
-            }
+            DrawDivider();
+
+            // ── Button Mapping ───────────────────────────────────────────────
+            EditorGUILayout.LabelField("Button Mapping", EditorStyles.boldLabel);
 
             EditorGUILayout.Space(4);
+            DrawButtonMappingSection(SpaceMouseDevice.Buttons);
+
+            DrawDivider();
 
             using (new EditorGUILayout.HorizontalScope())
             {
                 GUILayout.Space(EditorGUI.indentLevel * 15 + 4);
+                if (GUILayout.Button("Export Settings…", GUILayout.Width(120)))
+                    EditorApplication.delayCall += SpaceMouseSettings.ExportToFile;
+                if (GUILayout.Button("Import Settings…", GUILayout.Width(120)))
+                    EditorApplication.delayCall += SpaceMouseSettings.ImportFromFile;
+                GUILayout.Space(8);
                 if (GUILayout.Button("Reset to Defaults", GUILayout.Width(140)))
                     SpaceMouseSettings.ResetToDefaults();
-            }
-
-            EditorGUILayout.Space(8);
-
-            // ── Scene View Overlay ───────────────────────────────────────────
-            EditorGUILayout.LabelField("Scene View", EditorStyles.boldLabel);
-            using (new EditorGUI.IndentLevelScope())
-            {
-                if (GUILayout.Button("Show Navigation Overlay", GUILayout.Width(180)))
-                {
-                    SceneView sv = SceneView.lastActiveSceneView;
-                    if (sv == null && SceneView.sceneViews.Count > 0)
-                        sv = SceneView.sceneViews[0] as SceneView;
-                    if (sv != null)
-                    {
-                        sv.Focus();
-                        if (sv.TryGetOverlay("spacemouse-nav", out Overlay overlay))
-                            overlay.displayed = true;
-                    }
-                }
             }
 
             EditorGUILayout.Space(8);
@@ -167,18 +178,18 @@ namespace SpaceMousePro
             {
                 _rawAxisFoldout = EditorGUILayout.Foldout(_rawAxisFoldout, "Raw Axis Monitor", true, EditorStyles.foldoutHeader);
                 if (_rawAxisFoldout)
-                {
                     DrawRawAxisMonitor();
-                }
-                if (EditorWindow.focusedWindow != null)
-                    EditorWindow.focusedWindow.Repaint();
             }
+
+            // Keep the panel live so LEDs and axis bars update every frame
+            if (connected && EditorWindow.focusedWindow != null)
+                EditorWindow.focusedWindow.Repaint();
 
             // ── Version ──────────────────────────────────────────────────────
             EditorGUILayout.Space(16);
             EditorGUILayout.LabelField("SpaceMouse Pro driver for Unity on MacOS", EditorStyles.centeredGreyMiniLabel);
             EditorGUILayout.LabelField("Made by Erlend Dal Sakshaug", EditorStyles.centeredGreyMiniLabel);
-            EditorGUILayout.LabelField("Version 1.0", EditorStyles.centeredGreyMiniLabel);
+            EditorGUILayout.LabelField("Version 1.1", EditorStyles.centeredGreyMiniLabel);
         }
 
         static void DrawTableHeader()
@@ -191,7 +202,7 @@ namespace SpaceMousePro
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                GUILayout.Space(4);
+                GUILayout.Space(15);
                 GUILayout.Label("Channel",     headerStyle, GUILayout.Width(kLabelWidth));
                 GUILayout.Label("Source Axis", headerStyle, GUILayout.Width(kDropWidth));
                 GUILayout.Label("Invert",      headerStyle, GUILayout.Width(kInvWidth));
@@ -199,8 +210,8 @@ namespace SpaceMousePro
             }
 
             var rect = GUILayoutUtility.GetRect(0, 1, GUILayout.ExpandWidth(true));
-            rect.x      += 4;
-            rect.width  -= 8;
+            rect.x      += 15;
+            rect.width  -= 19;
             EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 0.4f));
             GUILayout.Space(2);
         }
@@ -224,7 +235,7 @@ namespace SpaceMousePro
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                GUILayout.Space(4);
+                GUILayout.Space(15);
 
                 GUILayout.Label(SpaceMouseSettings.ChannelNames[ch], GUILayout.Width(kLabelWidth));
 
@@ -289,6 +300,125 @@ namespace SpaceMousePro
                           alignment = TextAnchor.MiddleCenter,
                           normal    = { textColor = Color.white },
                       });
+        }
+
+        // ── Button mapping UI ────────────────────────────────────────────────
+
+        struct ButtonDef
+        {
+            public int    BitIndex;
+            public string Name;
+            public string Group;
+            public ButtonDef(int bit, string name, string group)
+                { BitIndex = bit; Name = name; Group = group; }
+        }
+
+        static readonly ButtonDef[] _buttons =
+        {
+            new(12, "App Key 1",       "App Keys"),
+            new(13, "App Key 2",       "App Keys"),
+            new(14, "App Key 3",       "App Keys"),
+            new(15, "App Key 4",       "App Keys"),
+            new(22, "Esc",             "Modifiers"),
+            new(24, "Shift",           "Modifiers"),
+            new(25, "Ctrl",            "Modifiers"),
+            new(23, "Alt",             "Modifiers"),
+            new(8,  "Roll +90\u00b0",  "QuickView"),
+            new(2,  "Top",             "QuickView"),
+            new(26, "Rotation Toggle", "QuickView"),
+            new(5,  "Front",           "QuickView"),
+            new(4,  "Right",           "QuickView"),
+            new(0,  "Menu",            "Utility"),
+            new(1,  "Fit",             "Utility"),
+        };
+
+        const float kBtnLedWidth    = 14f;
+        const float kBtnLabelWidth  = 110f;
+        const float kBtnDisplayWidth = 180f;
+        const float kBtnPickWidth   = 26f;
+        const float kBtnClearWidth  = 46f;
+
+        // Per-button dropdown state for AdvancedDropdown (must persist across frames)
+        static readonly Dictionary<int, AdvancedDropdownState> _dropdownStates = new();
+
+        static void DrawButtonMappingSection(uint btnMask)
+        {
+            var groupStyle = new GUIStyle(EditorStyles.miniLabel)
+            {
+                fontStyle = FontStyle.Bold,
+                padding   = new RectOffset(4, 2, 4, 2),
+            };
+
+            string currentGroup = null;
+            foreach (ButtonDef btn in _buttons)
+            {
+                if (btn.Group != currentGroup)
+                {
+                    currentGroup = btn.Group;
+                    EditorGUILayout.Space(2);
+                    EditorGUILayout.LabelField(currentGroup, groupStyle);
+                }
+
+                bool   active = (btnMask & (1u << btn.BitIndex)) != 0;
+                string saved  = SpaceMouseSettings.GetButtonAction(btn.BitIndex);
+                DrawButtonRow(btn.BitIndex, btn.Name, saved, active);
+            }
+        }
+
+        static void DrawButtonRow(int bitIndex, string name, string saved, bool active)
+        {
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.Space(15);
+
+                // LED
+                Rect ledRect = GUILayoutUtility.GetRect(kBtnLedWidth, 16f,
+                    GUILayout.Width(kBtnLedWidth), GUILayout.Height(16f));
+                float ledSize = 8f;
+                ledRect = new Rect(
+                    ledRect.x + (ledRect.width  - ledSize) * 0.5f,
+                    ledRect.y + (ledRect.height - ledSize) * 0.5f,
+                    ledSize, ledSize);
+                EditorGUI.DrawRect(ledRect, active
+                    ? new Color(0.2f, 1f, 0.3f, 1f)
+                    : new Color(0.2f, 0.2f, 0.2f, 0.8f));
+
+                // Button name
+                var labelStyle = new GUIStyle(EditorStyles.label);
+                if (active) labelStyle.fontStyle = FontStyle.Bold;
+                GUILayout.Label(name, labelStyle, GUILayout.Width(kBtnLabelWidth));
+
+                // Display label (current action's friendly name)
+                string displayName = SpaceMouseShortcutPicker.DisplayName(saved);
+                var displayStyle = new GUIStyle(EditorStyles.miniTextField)
+                {
+                    alignment = TextAnchor.MiddleLeft,
+                };
+                EditorGUILayout.LabelField(displayName, displayStyle, GUILayout.Width(kBtnDisplayWidth));
+
+                // "…" picker button
+                if (GUILayout.Button("\u2026", GUILayout.Width(kBtnPickWidth), GUILayout.Height(18f)))
+                {
+                    Rect pickerBtnRect = GUILayoutUtility.GetLastRect();
+                    if (!_dropdownStates.TryGetValue(bitIndex, out var state))
+                    {
+                        state = new AdvancedDropdownState();
+                        _dropdownStates[bitIndex] = state;
+                    }
+
+                    var picker = new SpaceMouseShortcutPicker(state);
+                    int capturedBit = bitIndex;
+                    picker.OnSelected += chosen => SpaceMouseSettings.SetButtonAction(capturedBit, chosen);
+                    picker.Show(pickerBtnRect);
+                }
+
+                // Clear button
+                using (new EditorGUI.DisabledGroupScope(string.IsNullOrEmpty(saved)))
+                {
+                    if (GUILayout.Button("Clear", GUILayout.Width(kBtnClearWidth), GUILayout.Height(18f)))
+                        SpaceMouseSettings.SetButtonAction(bitIndex, "");
+                }
+            }
         }
 
         static void DrawRawAxisMonitor()

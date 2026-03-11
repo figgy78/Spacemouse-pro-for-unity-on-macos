@@ -20,15 +20,69 @@ namespace SpaceMousePro
     static class SpaceMouseController
     {
         static double _lastTime;
+        static uint   _prevButtons;
 
         static SpaceMouseController()
         {
             EditorApplication.update += OnUpdate;
         }
 
+        static void DispatchAction(string action)
+        {
+            if (string.IsNullOrEmpty(action)) return;
+
+            if (action.StartsWith("#", System.StringComparison.Ordinal))
+            {
+                SpaceMouseCommands.Execute(action);
+                return;
+            }
+
+            // "@shortcutId" — simulate via ShortcutManager binding + CGEvent
+            if (action.StartsWith("@", System.StringComparison.Ordinal))
+            {
+                SpaceMouseCommands.ExecuteShortcut(action.Substring(1));
+                return;
+            }
+
+            const string mainMenuPrefix = "Main Menu/";
+            string menuPath = action.StartsWith(mainMenuPrefix, System.StringComparison.Ordinal)
+                ? action.Substring(mainMenuPrefix.Length)
+                : action; // backward-compat: plain paths used before this feature
+
+            if (!EditorApplication.ExecuteMenuItem(menuPath))
+                Debug.LogWarning($"[SpaceMouse] Unknown menu item: \"{menuPath}\"");
+        }
+
         static void OnUpdate()
         {
             if (!SpaceMouseDevice.Poll()) return;
+
+            // ── Button edge detection & action dispatch ───────────────────────
+            uint curr     = SpaceMouseDevice.Buttons;
+            uint pressed  = curr  & ~_prevButtons;   // newly pressed this frame
+            uint released = _prevButtons & ~curr;     // newly released this frame
+            _prevButtons  = curr;
+
+            if (pressed != 0)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    if ((pressed & (1u << i)) == 0) continue;
+                    string action = SpaceMouseSettings.GetButtonAction(i);
+                    DispatchAction(action);
+                }
+            }
+
+            if (released != 0)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    if ((released & (1u << i)) == 0) continue;
+                    string action = SpaceMouseSettings.GetButtonAction(i);
+                    if (!string.IsNullOrEmpty(action) && action.StartsWith("#", System.StringComparison.Ordinal))
+                        SpaceMouseCommands.ExecuteRelease(action);
+                }
+            }
 
             SceneView sv = SceneView.lastActiveSceneView;
             if (sv == null) return;
@@ -43,9 +97,10 @@ namespace SpaceMousePro
             float panX = SpaceMouseSettings.GetPanX();
             float panY = SpaceMouseSettings.GetPanY();
             float zoom = SpaceMouseSettings.GetZoom();
-            float tilt = SpaceMouseSettings.GetTilt();
-            float spin = SpaceMouseSettings.GetSpin();
-            float roll = SpaceMouseSettings.GetRoll();
+            bool  rotLocked = SpaceMouseSettings.RotationLocked;
+            float tilt = rotLocked ? 0f : SpaceMouseSettings.GetTilt();
+            float spin = rotLocked ? 0f : SpaceMouseSettings.GetSpin();
+            float roll = rotLocked ? 0f : SpaceMouseSettings.GetRoll();
 
             bool hasInput = panX != 0f || panY != 0f || zoom != 0f ||
                             tilt != 0f || spin != 0f || roll != 0f;
