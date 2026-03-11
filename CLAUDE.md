@@ -16,6 +16,7 @@ Whenever deploying / releasing changes, always do **both** of the following:
 2. **Sync the `upm` branch** with the latest code from `main`:
    - New/changed Editor CS files: `Assets/SpaceMousePro/Editor/` → `Editor/`
    - README and images if changed
+   - **Keep `.meta` files in sync**: every file/folder in the package must have a corresponding `.meta` file or Unity will log warnings and ignore the asset. When adding new files or folders, generate and commit their `.meta` files.
    - Commit and push `upm`
 
 Workflow:
