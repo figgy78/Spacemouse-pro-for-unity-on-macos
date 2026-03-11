@@ -33,6 +33,7 @@ namespace SpaceMousePro
         // ── Channel definitions ──────────────────────────────────────────────
 
         public const int ChannelCount = 6;
+        public const int MaxButtons   = 32;
 
         /// <summary>Display names for each output channel.</summary>
         public static readonly string[] ChannelNames =
@@ -218,7 +219,7 @@ namespace SpaceMousePro
             public bool    horizonLocked;
             public int[]   axisSrc      = new int[ChannelCount];
             public bool[]  axisInv      = new bool[ChannelCount];
-            public string[] buttonActions = new string[32];
+            public string[] buttonActions = new string[MaxButtons];
         }
 
         /// <summary>Writes all settings to a JSON file chosen via a save dialog.</summary>
@@ -243,11 +244,18 @@ namespace SpaceMousePro
                 data.axisInv[i] = GetInvert(i);
             }
 
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < MaxButtons; i++)
                 data.buttonActions[i] = GetButtonAction(i);
 
-            File.WriteAllText(path, JsonUtility.ToJson(data, prettyPrint: true));
-            Debug.Log($"[SpaceMouse] Settings exported to {path}");
+            try
+            {
+                File.WriteAllText(path, JsonUtility.ToJson(data, prettyPrint: true));
+                Debug.Log($"[SpaceMouse] Settings exported to {path}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[SpaceMouse] Failed to write settings file: {e.Message}");
+            }
         }
 
         /// <summary>Reads settings from a JSON file chosen via an open dialog and applies them.</summary>
@@ -257,18 +265,34 @@ namespace SpaceMousePro
                 "Import SpaceMouse Settings", "", "json");
             if (string.IsNullOrEmpty(path)) return;
 
-            string json = File.ReadAllText(path);
-            var data = JsonUtility.FromJson<SettingsData>(json);
-            if (data == null)
+            string json;
+            try
             {
-                Debug.LogError("[SpaceMouse] Failed to parse settings file.");
+                json = File.ReadAllText(path);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[SpaceMouse] Failed to read settings file: {e.Message}");
+                return;
+            }
+
+            SettingsData data;
+            try
+            {
+                data = JsonUtility.FromJson<SettingsData>(json);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[SpaceMouse] Failed to parse settings file: {e.Message}");
                 return;
             }
 
             TranslationSpeed = data.translationSpeed;
             RotationSpeed    = data.rotationSpeed;
             DeadZone         = data.deadZone;
-            NavigationMode   = (NavigationMode)data.navigationMode;
+            NavigationMode   = Enum.IsDefined(typeof(NavigationMode), data.navigationMode)
+                ? (NavigationMode)data.navigationMode
+                : NavigationMode.Orbit;
             HorizonLocked    = data.horizonLocked;
 
             for (int i = 0; i < ChannelCount && i < data.axisSrc.Length; i++)
@@ -278,7 +302,7 @@ namespace SpaceMousePro
             }
 
             if (data.buttonActions != null)
-                for (int i = 0; i < 32 && i < data.buttonActions.Length; i++)
+                for (int i = 0; i < MaxButtons && i < data.buttonActions.Length; i++)
                     SetButtonAction(i, data.buttonActions[i]);
 
             Debug.Log($"[SpaceMouse] Settings imported from {path}");

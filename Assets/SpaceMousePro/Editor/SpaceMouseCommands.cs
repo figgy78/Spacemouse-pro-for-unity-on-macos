@@ -93,10 +93,7 @@ namespace SpaceMousePro
         {
             if (IsModifier(id))
             {
-                if (_tapModifiers.Contains(id))
-                    PostModifierKey(id, keyDown: true);   // tap fires down+up immediately
-                else
-                    PostModifierKey(id, keyDown: true);
+                PostModifierKey(id, keyDown: true);
                 return;
             }
 
@@ -248,40 +245,47 @@ namespace SpaceMousePro
                 return;
             }
 
+            IntPtr evt = IntPtr.Zero;
             try
             {
-                IntPtr evt = CGEventCreateKeyboardEvent(IntPtr.Zero, vk, keyDown);
+                evt = CGEventCreateKeyboardEvent(IntPtr.Zero, vk, keyDown);
                 if (evt == IntPtr.Zero) return;
                 CGEventPost(kCGHIDEventTap, evt);
-                CFRelease(evt);
             }
             catch (Exception e)
             {
                 Debug.LogWarning($"[SpaceMouse] Failed to post modifier event: {e.Message}");
             }
+            finally
+            {
+                if (evt != IntPtr.Zero) CFRelease(evt);
+            }
         }
 
         static void PostKeyTap(ushort vk, ulong flags)
         {
+            IntPtr down = IntPtr.Zero;
+            IntPtr up   = IntPtr.Zero;
             try
             {
-                IntPtr down = CGEventCreateKeyboardEvent(IntPtr.Zero, vk, true);
+                down = CGEventCreateKeyboardEvent(IntPtr.Zero, vk, true);
                 if (down != IntPtr.Zero)
                 {
                     if (flags != 0) CGEventSetFlags(down, flags);
                     CGEventPost(kCGHIDEventTap, down);
-                    CFRelease(down);
                 }
-                IntPtr up = CGEventCreateKeyboardEvent(IntPtr.Zero, vk, false);
+                up = CGEventCreateKeyboardEvent(IntPtr.Zero, vk, false);
                 if (up != IntPtr.Zero)
-                {
                     CGEventPost(kCGHIDEventTap, up);
-                    CFRelease(up);
-                }
             }
             catch (Exception e)
             {
                 Debug.LogWarning($"[SpaceMouse] Failed to post key tap: {e.Message}");
+            }
+            finally
+            {
+                if (down != IntPtr.Zero) CFRelease(down);
+                if (up   != IntPtr.Zero) CFRelease(up);
             }
         }
 

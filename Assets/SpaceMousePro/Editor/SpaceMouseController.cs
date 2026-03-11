@@ -19,12 +19,21 @@ namespace SpaceMousePro
     [InitializeOnLoad]
     static class SpaceMouseController
     {
-        static double _lastTime;
+        static double _lastTime = -1.0;   // -1 = not yet initialised; skip first frame
         static uint   _prevButtons;
 
         static SpaceMouseController()
         {
             EditorApplication.update += OnUpdate;
+            // Unsubscribe before the next domain reload to prevent duplicate callbacks
+            // after script recompilation or entering Play mode.
+            AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+        }
+
+        static void OnBeforeAssemblyReload()
+        {
+            EditorApplication.update -= OnUpdate;
+            AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
         }
 
         static void DispatchAction(string action)
@@ -65,7 +74,7 @@ namespace SpaceMousePro
 
             if (pressed != 0)
             {
-                for (int i = 0; i < 32; i++)
+                for (int i = 0; i < SpaceMouseSettings.MaxButtons; i++)
                 {
                     if ((pressed & (1u << i)) == 0) continue;
                     string action = SpaceMouseSettings.GetButtonAction(i);
@@ -75,7 +84,7 @@ namespace SpaceMousePro
 
             if (released != 0)
             {
-                for (int i = 0; i < 32; i++)
+                for (int i = 0; i < SpaceMouseSettings.MaxButtons; i++)
                 {
                     if ((released & (1u << i)) == 0) continue;
                     string action = SpaceMouseSettings.GetButtonAction(i);
@@ -89,6 +98,7 @@ namespace SpaceMousePro
 
             // ── Delta time ──────────────────────────────────────────────────
             double now = EditorApplication.timeSinceStartup;
+            if (_lastTime < 0) { _lastTime = now; return; }  // skip first frame
             float  dt  = Mathf.Clamp((float)(now - _lastTime), 0f, 0.05f);
             _lastTime  = now;
             if (dt <= 0f) return;
