@@ -8,6 +8,27 @@ Architecture: native C dylib (polling) → C# P/Invoke → SceneView camera cont
 
 Published via UPM at: `https://github.com/figgy78/Spacemouse-pro-for-unity-on-macos.git#upm`
 
+## Deployment Checklist
+
+Whenever deploying / releasing changes, always do **both** of the following:
+
+1. **Bump the version** in `package.json` on the `upm` branch (follow SemVer: MINOR for new features, PATCH for bug fixes).
+2. **Sync the `upm` branch** with the latest code from `main`:
+   - New/changed Editor CS files: `Assets/SpaceMousePro/Editor/` → `Editor/`
+   - README and images if changed
+   - Commit and push `upm`
+
+Workflow:
+```bash
+git checkout upm
+# copy changed files from main, e.g.:
+git show origin/main:Assets/SpaceMousePro/Editor/Foo.cs > Editor/Foo.cs
+git checkout origin/main -- README.md images/
+# bump version in package.json, then:
+git add -p && git commit -m "Sync vX.Y.Z from main" && git push origin upm
+git checkout main
+```
+
 ## Unity Version
 
 Unity 6 (6000.3), macOS only, Apple Silicon + x86_64 universal binary.
