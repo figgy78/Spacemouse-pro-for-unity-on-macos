@@ -71,11 +71,15 @@ Open **Edit → Preferences → SpaceMouse Pro**.
 | **Button Mapping** | Assign any command to each SpaceMouse button |
 | **Raw Axis Monitor** | Live readout of all 6 raw axes and button bitmask (expandable, device must be connected) |
 
+![Raw Axis Monitor](images/RawDataMonitor.png)
+
 Use **Export Settings / Import Settings** to save and restore your configuration, and **Reset to Defaults** to restore all settings to factory values.
 
 ---
 
 ## Button Mapping
+
+![Button Mapping](images/SpaceMouseProMapping.png)
 
 Each SpaceMouse button can be assigned any of four command types, chosen via the **…** picker:
 
