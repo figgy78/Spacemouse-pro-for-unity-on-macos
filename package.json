@@ -1,6 +1,6 @@
 {
   "name": "com.erlendds.spacemousepro",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "SpaceMouse Pro Driver",
   "description": "SpaceMouse Pro driver for Unity Editor on macOS. Enables full 6DOF navigation in the Scene View using the 3DconnexionClient.framework.",
   "unity": "6000.0",
