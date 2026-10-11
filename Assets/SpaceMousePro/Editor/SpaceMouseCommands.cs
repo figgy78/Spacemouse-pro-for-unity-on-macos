@@ -97,6 +97,12 @@ namespace SpaceMousePro
                 return;
             }
 
+            if (id == "#rotation/toggle-lock")
+            {
+                SpaceMouseSettings.RotationLocked = !SpaceMouseSettings.RotationLocked;
+                return;
+            }
+
             SceneView sv = SceneView.lastActiveSceneView;
             if (sv == null) return;
 
@@ -107,9 +113,6 @@ namespace SpaceMousePro
             {
                 case "#frame/selected":
                     sv.FrameSelected();
-                    break;
-                case "#rotation/toggle-lock":
-                    SpaceMouseSettings.RotationLocked = !SpaceMouseSettings.RotationLocked;
                     break;
                 case "#view/top":
                     sv.LookAt(pivot, Quaternion.Euler(90f, 0f, 0f), size, true, true);
@@ -218,6 +221,33 @@ namespace SpaceMousePro
         [DllImport("/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation")]
         static extern void CFRelease(IntPtr cf);
 
+        [DllImport("/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices")]
+        [return: MarshalAs(UnmanagedType.I1)]
+        static extern bool AXIsProcessTrusted();
+
+        static bool _warnedAccessibility;
+
+        /// <summary>CGEventPost is silently dropped without Accessibility permission; warn once.</summary>
+        static bool EnsureAccessibility()
+        {
+            try
+            {
+                if (AXIsProcessTrusted()) return true;
+            }
+            catch (Exception)
+            {
+                return true;   // cannot check; try anyway
+            }
+
+            if (!_warnedAccessibility)
+            {
+                _warnedAccessibility = true;
+                Debug.LogWarning("[SpaceMouse] Keyboard simulation (modifier keys and shortcut actions) needs " +
+                                 "Accessibility permission. Enable Unity under System Settings > Privacy & Security > Accessibility.");
+            }
+            return false;
+        }
+
         // Virtual key codes from Carbon HIToolbox/Events.h
         static readonly Dictionary<string, ushort> _modifierKeyCodes = new()
         {
@@ -234,9 +264,22 @@ namespace SpaceMousePro
             { "#modifier/fn",           0x3F },  // kVK_Function
         };
 
+        // Hold-type modifiers currently down, so they can be released on disconnect / reload / quit.
+        static readonly HashSet<string> _heldModifiers = new();
+
+        /// <summary>Sends key-up for every modifier this class has pressed and not yet released.</summary>
+        public static void ReleaseAllModifiers()
+        {
+            if (_heldModifiers.Count == 0) return;
+            var held = new List<string>(_heldModifiers);
+            foreach (string id in held)
+                PostModifierKey(id, keyDown: false);
+        }
+
         static void PostModifierKey(string id, bool keyDown)
         {
             if (!_modifierKeyCodes.TryGetValue(id, out ushort vk)) return;
+            if (!EnsureAccessibility()) return;
 
             if (_tapModifiers.Contains(id))
             {
@@ -244,6 +287,8 @@ namespace SpaceMousePro
                 PostKeyTap(vk, 0);
                 return;
             }
+
+            if (keyDown) _heldModifiers.Add(id); else _heldModifiers.Remove(id);
 
             IntPtr evt = IntPtr.Zero;
             try
@@ -264,6 +309,7 @@ namespace SpaceMousePro
 
         static void PostKeyTap(ushort vk, ulong flags)
         {
+            if (!EnsureAccessibility()) return;
             IntPtr down = IntPtr.Zero;
             IntPtr up   = IntPtr.Zero;
             try

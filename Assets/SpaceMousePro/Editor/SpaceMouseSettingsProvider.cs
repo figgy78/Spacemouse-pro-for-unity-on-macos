@@ -24,6 +24,11 @@ namespace SpaceMousePro
 
         static bool _rawAxisFoldout = false;
 
+        // Read from package.json when installed via UPM; fallback matches the last release.
+        static string PackageVersion =>
+            UnityEditor.PackageManager.PackageInfo.FindForAssembly(typeof(SpaceMouseSettingsProvider).Assembly)?.version
+            ?? "1.1.1";
+
         // Column widths for the axis mapping table
         const float kLabelWidth  = 130f;
         const float kDropWidth   = 190f;
@@ -189,7 +194,7 @@ namespace SpaceMousePro
             EditorGUILayout.Space(16);
             EditorGUILayout.LabelField("SpaceMouse Pro driver for Unity on MacOS", EditorStyles.centeredGreyMiniLabel);
             EditorGUILayout.LabelField("Made by Erlend Dal Sakshaug", EditorStyles.centeredGreyMiniLabel);
-            EditorGUILayout.LabelField("Version 1.1", EditorStyles.centeredGreyMiniLabel);
+            EditorGUILayout.LabelField("Version " + PackageVersion, EditorStyles.centeredGreyMiniLabel);
         }
 
         static void DrawTableHeader()

@@ -72,6 +72,9 @@ namespace SpaceMousePro
 
         // ── Global settings ──────────────────────────────────────────────────
 
+        /// <summary>Raised when navigation mode or horizon lock changes, so UI can refresh without polling.</summary>
+        public static event Action Changed;
+
         public static float TranslationSpeed
         {
             get => EditorPrefs.GetFloat("SpaceMouse.TranslationSpeed", 6f);
@@ -93,7 +96,11 @@ namespace SpaceMousePro
         public static NavigationMode NavigationMode
         {
             get => (NavigationMode)EditorPrefs.GetInt("SpaceMouse.NavigationMode", (int)NavigationMode.Orbit);
-            set => EditorPrefs.SetInt("SpaceMouse.NavigationMode", (int)value);
+            set
+            {
+                EditorPrefs.SetInt("SpaceMouse.NavigationMode", (int)value);
+                Changed?.Invoke();
+            }
         }
 
         /// <summary>
@@ -103,7 +110,11 @@ namespace SpaceMousePro
         public static bool HorizonLocked
         {
             get => EditorPrefs.GetBool("SpaceMouse.HorizonLocked", false);
-            set => EditorPrefs.SetBool("SpaceMouse.HorizonLocked", value);
+            set
+            {
+                EditorPrefs.SetBool("SpaceMouse.HorizonLocked", value);
+                Changed?.Invoke();
+            }
         }
 
         /// <summary>
@@ -287,18 +298,30 @@ namespace SpaceMousePro
                 return;
             }
 
-            TranslationSpeed = data.translationSpeed;
-            RotationSpeed    = data.rotationSpeed;
-            DeadZone         = data.deadZone;
+            if (data == null)
+            {
+                Debug.LogError("[SpaceMouse] Settings file is empty or invalid.");
+                return;
+            }
+
+            // Fields absent from the file deserialize as 0/false; only apply values that are plausible
+            // so a partial file cannot zero out the speeds.
+            if (data.translationSpeed > 0f) TranslationSpeed = data.translationSpeed;
+            if (data.rotationSpeed    > 0f) RotationSpeed    = data.rotationSpeed;
+            DeadZone         = Mathf.Clamp(data.deadZone, 0f, 0.5f);
             NavigationMode   = Enum.IsDefined(typeof(NavigationMode), data.navigationMode)
                 ? (NavigationMode)data.navigationMode
                 : NavigationMode.Orbit;
             HorizonLocked    = data.horizonLocked;
 
-            for (int i = 0; i < ChannelCount && i < data.axisSrc.Length; i++)
+            if (data.axisSrc != null)
             {
-                SetSourceAxis(i, data.axisSrc[i]);
-                SetInvert(i, data.axisInv[i]);
+                for (int i = 0; i < ChannelCount && i < data.axisSrc.Length; i++)
+                {
+                    SetSourceAxis(i, data.axisSrc[i]);
+                    if (data.axisInv != null && i < data.axisInv.Length)
+                        SetInvert(i, data.axisInv[i]);
+                }
             }
 
             if (data.buttonActions != null)
@@ -326,7 +349,7 @@ namespace SpaceMousePro
             }
 
             // Delete button overrides so built-in defaults take effect again
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < MaxButtons; i++)
                 EditorPrefs.DeleteKey(BtnKey(i));
         }
     }

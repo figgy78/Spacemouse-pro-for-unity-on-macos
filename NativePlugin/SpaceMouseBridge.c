@@ -4,11 +4,11 @@
  *
  * Axis layout per 3DxWareMac SDK (data ordered as):
  *   axis[0] = Tx  (Pan Right/Left)
- *   axis[1] = Tz  (Pan Up/Down)
- *   axis[2] = Ty  (Zoom / Forward-Back)
+ *   axis[1] = Ty  (Zoom / Forward-Back)
+ *   axis[2] = Tz  (Pan Up/Down)
  *   axis[3] = Rx  (Tilt / Pitch)
- *   axis[4] = Rz  (Spin / Yaw)
- *   axis[5] = Ry  (Roll)
+ *   axis[4] = Ry  (Roll)
+ *   axis[5] = Rz  (Spin / Yaw)
  *
  * Typical axis range: ±500. Maximum range: ±1024.
  *
@@ -179,11 +179,12 @@ void SMB_Cleanup(void)
  *
  * Axis semantics (Camera Mode per SDK):
  *   panX  = axis[0] Tx  +right / -left
- *   panY  = axis[1] Tz  sign depends on driver; typically -up / +down
- *   zoom  = axis[2] Ty  +forward(zoom in) / -backward(zoom out)
+ *   panY  = axis[2] Tz  sign depends on driver; typically -up / +down
+ *   zoom  = axis[1] Ty  +forward(zoom in) / -backward(zoom out)
  *   tilt  = axis[3] Rx  pitch
- *   spin  = axis[4] Rz  yaw
- *   roll  = axis[5] Ry  roll
+ *   spin  = axis[5] Rz  yaw
+ *   roll  = axis[4] Ry  roll
+ * The out-parameters below are raw axis[0..5] in order; C# maps them to channels.
  */
 __attribute__((visibility("default")))
 int SMB_Poll(
