@@ -21,6 +21,8 @@ namespace SpaceMousePro
     {
         static double _lastTime = -1.0;   // -1 = not yet initialised; skip first frame
         static uint   _prevButtons;
+        // Action that was dispatched on press, so release uses it even if the mapping changed mid-hold.
+        static readonly string[] _pressedActions = new string[SpaceMouseSettings.MaxButtons];
 
         static SpaceMouseController()
         {
@@ -28,10 +30,12 @@ namespace SpaceMousePro
             // Unsubscribe before the next domain reload to prevent duplicate callbacks
             // after script recompilation or entering Play mode.
             AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+            EditorApplication.quitting += SpaceMouseCommands.ReleaseAllModifiers;
         }
 
         static void OnBeforeAssemblyReload()
         {
+            SpaceMouseCommands.ReleaseAllModifiers();
             EditorApplication.update -= OnUpdate;
             AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
         }
@@ -64,6 +68,14 @@ namespace SpaceMousePro
 
         static void OnUpdate()
         {
+            // A removed device sends no release events; let go of anything still held.
+            if (_prevButtons != 0 && !SpaceMouseDevice.IsConnected)
+            {
+                SpaceMouseCommands.ReleaseAllModifiers();
+                _prevButtons = 0;
+                System.Array.Clear(_pressedActions, 0, _pressedActions.Length);
+            }
+
             if (!SpaceMouseDevice.Poll()) return;
 
             // ── Button edge detection & action dispatch ───────────────────────
@@ -78,6 +90,7 @@ namespace SpaceMousePro
                 {
                     if ((pressed & (1u << i)) == 0) continue;
                     string action = SpaceMouseSettings.GetButtonAction(i);
+                    _pressedActions[i] = action;
                     DispatchAction(action);
                 }
             }
@@ -87,7 +100,8 @@ namespace SpaceMousePro
                 for (int i = 0; i < SpaceMouseSettings.MaxButtons; i++)
                 {
                     if ((released & (1u << i)) == 0) continue;
-                    string action = SpaceMouseSettings.GetButtonAction(i);
+                    string action = _pressedActions[i];
+                    _pressedActions[i] = null;
                     if (!string.IsNullOrEmpty(action) && action.StartsWith("#", System.StringComparison.Ordinal))
                         SpaceMouseCommands.ExecuteRelease(action);
                 }
@@ -144,7 +158,8 @@ namespace SpaceMousePro
                 sv.pivot += camUp    * ( panY * distScale * dt);
 
                 // Zoom changes orbit radius (sv.size), not camera position.
-                sv.size = Mathf.Max(0.001f, sv.size - zoom * sv.size * transSpeed * dt);
+                // Exponential so large speed * dt can never drive the radius negative.
+                sv.size = Mathf.Max(0.001f, sv.size * Mathf.Exp(-zoom * transSpeed * dt));
 
                 sv.rotation = deltaQ * sv.rotation;
             }

@@ -29,9 +29,9 @@ namespace SpaceMousePro
                 RegisterCallback<AttachToPanelEvent>(_ =>
                 {
                     Refresh();
-                    EditorApplication.update += Refresh;
+                    SpaceMouseSettings.Changed += Refresh;
                 });
-                RegisterCallback<DetachFromPanelEvent>(_ => EditorApplication.update -= Refresh);
+                RegisterCallback<DetachFromPanelEvent>(_ => SpaceMouseSettings.Changed -= Refresh);
             }
 
             void OnChanged(ChangeEvent<bool> evt)
@@ -59,9 +59,9 @@ namespace SpaceMousePro
                 RegisterCallback<AttachToPanelEvent>(_ =>
                 {
                     Refresh();
-                    EditorApplication.update += Refresh;
+                    SpaceMouseSettings.Changed += Refresh;
                 });
-                RegisterCallback<DetachFromPanelEvent>(_ => EditorApplication.update -= Refresh);
+                RegisterCallback<DetachFromPanelEvent>(_ => SpaceMouseSettings.Changed -= Refresh);
             }
 
             void OnChanged(ChangeEvent<bool> evt) =>
@@ -86,9 +86,9 @@ namespace SpaceMousePro
                 RegisterCallback<AttachToPanelEvent>(_ =>
                 {
                     Refresh();
-                    EditorApplication.update += Refresh;
+                    SpaceMouseSettings.Changed += Refresh;
                 });
-                RegisterCallback<DetachFromPanelEvent>(_ => EditorApplication.update -= Refresh);
+                RegisterCallback<DetachFromPanelEvent>(_ => SpaceMouseSettings.Changed -= Refresh);
             }
 
             void OnChanged(ChangeEvent<bool> evt)
